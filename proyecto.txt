@@ -1,0 +1,12 @@
+WebPack -> solo JavaScript
+
+Desarrollo ----
+
+mongoDB Atlas //  DataBase 
+
+express //framework
+
+html cs Js // Front-End
+
+
+
