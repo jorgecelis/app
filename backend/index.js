@@ -1,43 +1,40 @@
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
-}
+} 
 
-const path = require('path')
-const express = require('express')
-const morgan = require('morgan')
-const multer = require('multer')
-const cors = require('cors')
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
 
-//Initializations
-const app = express()
+// Initializations
+const app = express();
 require('./database');
 
-//Settings
+// settings
 app.set('port', process.env.PORT || 4000);
 
-//Middelwares
+// middlewares
 app.use(morgan('dev'));
 app.use(cors());
-//guardo imagen con nombre de fecha concadenada la extencion
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/uploads'),
-    filename(req, file, cb){
+    filename(req, file, cb) {
         cb(null, new Date().getTime() + path.extname(file.originalname));
     }
 })
-app.use(multer({ storage }).single('image'));
-app.use(express.urlencoded({ extended: false }));
+app.use(multer({storage}).single('image'));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
+// routes
+app.use('/api/books', require('./routes/books'));
 
-//Routes
-app.use('/api/books',require('./routes/books'));
-
-
-//Static files
+// static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Start the server
+// start the server
 app.listen(app.get('port'), () => {
-    console.log('Server on Port', app.get('port'))
-})
+    console.log(`Server on port ${app.get('port')}`);
+});
