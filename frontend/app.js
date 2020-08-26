@@ -1,4 +1,4 @@
-import "./style/app.css";
+import "./styles/app.css";
 
 import Book from './models/Book.js';
 import UI from './UI.js';
@@ -23,6 +23,10 @@ document.getElementById('book-form')
     formData.append('title', title);
     formData.append('author', author);
     formData.append('isbn', isbn);
+
+    // for(var pair of formData.entries()) {
+    //   console.log(pair[0]+', '+pair[1]);
+    // }
 
     // Instatiating the UI
     const ui = new UI();
